@@ -3,7 +3,7 @@ package Chess;
 public abstract class ChessPiece {
 
     protected String color;
-    private boolean check = true;
+    private boolean isMoved = false;
 
     public ChessPiece(String color) {
         this.color = color;
@@ -15,4 +15,12 @@ public abstract class ChessPiece {
                                               int toLine, int toColumn);
 
     public abstract String getSymbol();
+
+    public void isMotionHappen() {
+        isMoved = true;
+    }
+
+    public boolean isMoved() {
+        return isMoved;
+    }
 }
