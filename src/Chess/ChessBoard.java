@@ -25,6 +25,8 @@ public class ChessBoard {
                 if (board[startLine][startColumn].getClass() == King.class ||  // check position for castling
                         board[startLine][startColumn].getClass() == Rook.class) {
                     board[startLine][startColumn].isMotionHappen();
+                } else if ((endLine == 7 || endLine == 0) && board[startLine][startColumn].getClass() == Pawn.class) {
+                    board[startLine][startColumn] = new Queen(nowPlayer);   //Replace Pawn to Queen
                 }
 
                 board[endLine][endColumn] = board[startLine][startColumn];  // if piece can move, we moved a piece
@@ -74,7 +76,6 @@ public class ChessBoard {
             color = "Black";
             line = 7;
         }
-        //if (nowPlayer.equals("White")) {
         if (board[line][0] == null || board[line][4] == null) {
             return false;
         }
@@ -97,30 +98,6 @@ public class ChessBoard {
         } else {
             return false;
         }
-        /*} else {
-            if (board[7][0] == null || board[7][4] == null) {
-                return false;
-            }
-            if (board[7][0].getClass() == Rook.class && board[7][4].getClass() == King.class &&  // check that King and Rook
-                    board[7][1] == null && board[7][2] == null && board[7][3] == null) {         // never moved
-                if (board[7][0].getColor().equals("Black") && board[7][4].getColor().equals("Black") &&
-                        board[7][0].getCheck() && board[7][4].getCheck() &&
-                        !new King("Black").isUnderAttack(this, 7, 2)) { // check that position not in under attack
-                    board[7][4] = null;
-                    board[7][2] = new King("Black");   // move King
-                    board[7][2].setCheck();
-                    board[7][0] = null;
-                    board[7][3] = new Rook("Black");   // move Rook
-                    board[7][3].setCheck();
-                    nowPlayer = "White";  // next turn
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }*/
     }
 
     public boolean castling7() {
