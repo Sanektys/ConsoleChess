@@ -20,6 +20,10 @@ public class Rook extends ChessPiece {
         if (!(chessBoard.checkPos(toLine) && chessBoard.checkPos(toColumn))) {
             return false;
         }
+        if (chessBoard.board[toLine][toColumn] != null &&
+                chessBoard.board[toLine][toColumn].getColor().equals(this.color)) {
+            return false;
+        }
         boolean isGoingVertical   = Math.abs(line - toLine) > 0;
         boolean isGoingHorizontal = Math.abs(column - toColumn) > 0;
         if ((isGoingVertical && !isGoingHorizontal) || (!isGoingVertical && isGoingHorizontal)) {

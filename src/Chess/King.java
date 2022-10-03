@@ -19,6 +19,10 @@ public class King extends ChessPiece {
         if (!(chessBoard.checkPos(toLine) && chessBoard.checkPos(toColumn))) {
             return false;
         }
+        if (chessBoard.board[toLine][toColumn] != null &&
+                chessBoard.board[toLine][toColumn].getColor().equals(this.color)) {
+            return false;
+        }
         return Math.abs(line - toLine) <= 1 && Math.abs(column - toColumn) <= 1;
     }
 

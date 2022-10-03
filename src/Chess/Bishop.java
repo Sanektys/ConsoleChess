@@ -20,6 +20,10 @@ public class Bishop extends ChessPiece {
         if (!(chessBoard.checkPos(toLine) && chessBoard.checkPos(toColumn))) {
             return false;
         }
+        if (chessBoard.board[toLine][toColumn] != null &&
+                chessBoard.board[toLine][toColumn].getColor().equals(this.color)) {
+            return false;
+        }
         if (Math.abs(line - toLine) == Math.abs(column - toColumn)) {
             int deltaLine   = (toLine > line) ? 1 : -1;
             int deltaColumn = (toColumn > column) ? 1 : -1;
