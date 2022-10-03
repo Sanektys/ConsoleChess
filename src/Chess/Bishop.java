@@ -20,7 +20,19 @@ public class Bishop extends ChessPiece {
         if (!(chessBoard.checkPos(toLine) && chessBoard.checkPos(toColumn))) {
             return false;
         }
-        return Math.abs(line - toLine) == Math.abs(column - toColumn);
+        if (Math.abs(line - toLine) == Math.abs(column - toColumn)) {
+            int deltaLine   = (toLine > line) ? 1 : -1;
+            int deltaColumn = (toColumn > column) ? 1 : -1;
+            for (int i = line + deltaLine, j = column + deltaColumn; i != toLine;
+                 i += deltaLine, j += deltaColumn) {
+                if (chessBoard.board[i][j] != null) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
