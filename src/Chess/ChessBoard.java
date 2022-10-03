@@ -58,8 +58,12 @@ public class ChessBoard {
             }
             System.out.print("\n\n");
         }
-        System.out.println("\tPlayer 1(White)");
-        System.out.printf("%n-> Turn %s -> ", nowPlayer);
+        System.out.println("\tPlayer 1(White)\n");
+        String kingIsUnderAttack = kingIsUnderAttack();
+        if (!kingIsUnderAttack.isEmpty()) {
+            System.out.println(kingIsUnderAttack);
+        }
+        System.out.printf("-> Turn %s -> ", nowPlayer);
     }
 
     public boolean checkPos(int pos) {
@@ -131,6 +135,45 @@ public class ChessBoard {
             }
         } else {
             return false;
+        }
+    }
+
+    public String kingIsUnderAttack() {
+        StringBuilder message = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null && board[i][j].getClass() == King.class) {
+                    if (((King) board[i][j]).isUnderAttack(this, i, j)) {
+                        if (message.isEmpty()) {
+                            message.append(board[i][j].getColor()).append(" king ");
+                        } else {
+                            message.append("and ").append(board[i][j].getColor()).append(" king ");
+                        }
+                    }
+                }
+            }
+        }
+        if (!message.isEmpty()) {
+            message.append("is under check");
+        }
+        return message.toString();
+    }
+
+    public boolean kingsAlive() {
+        King[] kings = new King[2];
+        int count = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j] != null && board[i][j].getClass() == King.class) {
+                    kings[count++] = (King) board[i][j];
+                }
+            }
+        }
+        if (count < 2) {
+            System.out.printf("%s wins!", kings[0].getColor());
+            return false;
+        } else {
+            return true;
         }
     }
 }

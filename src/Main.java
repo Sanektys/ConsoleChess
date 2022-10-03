@@ -56,7 +56,7 @@ public class Main {
                """);
         System.out.println();
         board.printBoard();
-        while (true) {
+        while (board.kingsAlive()) {
             String s = scanner.nextLine();
             if (s.equals("exit")) {
                 break;
