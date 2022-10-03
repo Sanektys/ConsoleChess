@@ -41,8 +41,7 @@ public class ChessBoard {
     }
 
     public void printBoard() {  //print board in console
-        System.out.printf("Turn %s%n%n", nowPlayer);
-        System.out.println("Player 2(Black)\n");
+        System.out.println("\tPlayer 2(Black)\n");
         System.out.println("\t0\t1\t2\t3\t4\t5\t6\t7");
 
         for (int i = 7; i >= 0; i--) {
@@ -57,7 +56,8 @@ public class ChessBoard {
             }
             System.out.print("\n\n");
         }
-        System.out.println("Player 1(White)");
+        System.out.println("\tPlayer 1(White)");
+        System.out.printf("%n-> Turn %s -> ", nowPlayer);
     }
 
     public boolean checkPos(int pos) {
