@@ -72,12 +72,9 @@ public class ChessBoard {
 
     public boolean castling0() {
         int line;
-        String color;
         if (nowPlayer.equals("White")) {
-            color = "White";
             line = 0;
         } else {
-            color = "Black";
             line = 7;
         }
         if (board[line][0] == null || board[line][4] == null) {
@@ -85,57 +82,54 @@ public class ChessBoard {
         }
         if (board[line][0].getClass() == Rook.class && board[line][4].getClass() == King.class &&  // check that King and Rook
                 board[line][1] == null && board[line][2] == null && board[line][3] == null) {      // never moved
-            if (board[line][0].getColor().equals(color) && board[line][4].getColor().equals(color) &&
-                    !board[line][0].isMoved() && !board[line][4].isMoved() &&
-                    !new King(color).isUnderAttack(this, 0, 2)) {  // check that position not in under attack
-                board[line][4] = null;
-                board[line][2] = new King(color);   // move King
-                board[line][2].isMotionHappen();
-                board[line][0] = null;
-                board[line][3] = new Rook(color);   // move Rook
-                board[line][3].isMotionHappen();
-                nowPlayer = color.equals("White") ? "Black" : "White";  // next turn
-                return true;
-            } else {
-                return false;
+            if (board[line][0].getColor().equals(nowPlayer) && board[line][4].getColor().equals(nowPlayer) &&
+                    !board[line][0].isMoved() && !board[line][4].isMoved()) {
+                if (!((King) board[line][4]).isUnderAttack(this, line, 4) &&
+                        !((King) board[line][4]).isUnderAttack(this, line, 3) &&
+                        !((King) board[line][4]).isUnderAttack(this, line, 2)) {  // check that position not in under attack
+                    board[line][4] = null;
+                    board[line][2] = new King(nowPlayer);   // move King
+                    board[line][2].isMotionHappen();
+                    board[line][0] = null;
+                    board[line][3] = new Rook(nowPlayer);   // move Rook
+                    board[line][3].isMotionHappen();
+                    nowPlayer = nowPlayer.equals("White") ? "Black" : "White";  // next turn
+                    return true;
+                }
             }
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean castling7() {
         int line;
-        String color;
         if (nowPlayer.equals("White")) {
             line = 0;
-            color = "White";
         } else {
             line = 7;
-            color = "Black";
         }
         if (board[line][7] == null || board[line][4] == null) {
             return false;
         }
         if (board[line][7].getClass() == Rook.class && board[line][4].getClass() == King.class &&  // check that King and Rook
                 board[line][5] == null && board[line][6] == null) {                                // never moved
-            if (board[line][7].getColor().equals(color) && board[line][4].getColor().equals(color) &&
-                    !board[line][7].isMoved() && !board[line][4].isMoved() &&
-                    !new King(color).isUnderAttack(this, 0, 6)) {  // check that position not in under attack
-                board[line][4] = null;
-                board[line][6] = new King(color);   // move King
-                board[line][6].isMotionHappen();
-                board[line][7] = null;
-                board[line][5] = new Rook(color);   // move Rook
-                board[line][5].isMotionHappen();
-                nowPlayer = color.equals("White") ? "Black" : "White";  // next turn
-                return true;
-            } else {
-                return false;
+            if (board[line][7].getColor().equals(nowPlayer) && board[line][4].getColor().equals(nowPlayer) &&
+                    !board[line][7].isMoved() && !board[line][4].isMoved()) {
+                if (!((King) board[line][4]).isUnderAttack(this, line, 4) &&
+                        !((King) board[line][4]).isUnderAttack(this, line, 5) &&
+                        !((King) board[line][4]).isUnderAttack(this, line, 6)) {  // check that position not in under attack
+                    board[line][4] = null;
+                    board[line][6] = new King(nowPlayer);   // move King
+                    board[line][6].isMotionHappen();
+                    board[line][7] = null;
+                    board[line][5] = new Rook(nowPlayer);   // move Rook
+                    board[line][5].isMotionHappen();
+                    nowPlayer = nowPlayer.equals("White") ? "Black" : "White";  // next turn
+                    return true;
+                }
             }
-        } else {
-            return false;
         }
+        return false;
     }
 
     public String kingIsUnderAttack() {
