@@ -50,6 +50,8 @@ public class King extends ChessPiece {
                     case 1, 6, 7 -> -1;
                     default -> 0;
                 };
+                distance++;
+
                 inBoardArea = chessBoard.checkPos(searchLine) && chessBoard.checkPos(searchColumn);
                 if (!inBoardArea || chessBoard.board[searchLine][searchColumn] == null) {
                     continue;
@@ -58,7 +60,6 @@ public class King extends ChessPiece {
                     break;
                 }
 
-                distance++;
                 Class<?> chessPiece = chessBoard.board[searchLine][searchColumn].getClass();
                 if (ways > 4) {
                     if (distance == 1) {
